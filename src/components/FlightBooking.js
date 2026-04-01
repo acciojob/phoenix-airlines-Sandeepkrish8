@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setBookingDetails } from "../store/flightSlice";
@@ -11,8 +11,13 @@ const FlightBooking = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
+  useEffect(() => {
+    if (!selectedFlight || !selectedFlight.flight) {
+      history.replace("/flight-search");
+    }
+  }, [selectedFlight, history]);
+
   if (!selectedFlight || !selectedFlight.flight) {
-    history.replace("/flight-search");
     return null;
   }
 
